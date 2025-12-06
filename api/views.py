@@ -10,6 +10,7 @@ from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from employees.filters import EmployeeFilter
 from rest_framework import filters
+from employees.permissions import IsHRForDelete
 # Create your views here.
 # class Employees(APIView):
 #     def get(self,request):
@@ -97,6 +98,7 @@ from rest_framework import filters
 class EmployeeViewset(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    permission_classes = [IsHRForDelete]
     filter_backends = [SearchFilter,filters.OrderingFilter,DjangoFilterBackend]
     search_fields = ['name']
     filterset_class = EmployeeFilter
